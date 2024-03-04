@@ -6,9 +6,10 @@ interface Props {
   post: Post | undefined;
   closeForm: () => void;
   createOrEdit: (post: Post) => void;
+  submitting: boolean;
 }
 
-export default function PostForm({ post: selectedPost, closeForm, createOrEdit }: Props) {
+export default function PostForm({ post: selectedPost, closeForm, createOrEdit, submitting }: Props) {
   const initialState = selectedPost ?? {
     id: "",
     title: "",
@@ -43,12 +44,13 @@ export default function PostForm({ post: selectedPost, closeForm, createOrEdit }
           onChange={handleInputChange}
         />
         <Form.Input
+          type="date"
           placeholder="Date"
           value={post.date}
           name="date"
           onChange={handleInputChange}
         />
-        <Button floated="right" positive type="submit" content="Submit" />
+        <Button loading={submitting} floated="right" positive type="submit" content="Submit" />
         <Button
           onClick={closeForm}
           floated="right"
